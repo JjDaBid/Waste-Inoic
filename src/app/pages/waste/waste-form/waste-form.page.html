@@ -1,0 +1,129 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <section class="toolbar-control">
+      <ion-fab class="arrow-back-icon" (click)="goBackWaste()">
+        <ion-fab-button  >
+          <ion-icon name="chevron-back" ></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+      <ion-title>Formato RH1</ion-title>
+    </section>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list lines="full">
+
+    <!-- En dispositivos móviles -->
+    <ion-item *ngIf="isMobile">
+      <ion-button (click)="tomarFoto()">Tomar Foto</ion-button>
+    </ion-item>
+
+    <!-- En pantallas de escritorio -->
+    <ion-item class="photo-button" *ngIf="!isMobile">
+      <ion-button (click)="tomarFoto()" class="photo-button">Tomar Foto</ion-button>
+    </ion-item>
+    <ion-item *ngIf="fotoCapturada">
+      <img [src]="fotoCapturada" alt="Foto tomada">
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Fecha</ion-label>
+      <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="fecha"></ion-datetime>
+    </ion-item>
+
+    <ion-item-divider color="light">Residuos Ordinarios</ion-item-divider>
+    <ion-item>
+      <ion-text>Residuos Ordinarios No Aprovechables: </ion-text>
+      <ion-input type="number" [(ngModel)]="residuosOrdinariosNoAprovechables" (ionChange)="calcularPorcentajes()" class="data-input"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-text>% Residuos Ordinarios No Aprovechables: </ion-text>
+      <ion-input type="number" [(ngModel)]="porcentajeResiduosOrdinariosNoAprovechables" readonly></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-text>Residuos Ordinarios Aprovechables: </ion-text>
+      <ion-input type="number" [(ngModel)]="residuosOrdinariosAprovechables" (ionChange)="calcularPorcentajes()" class="data-input"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-text> % Residuos ordinarios Aprovechables: </ion-text>
+      <ion-input type="number" [(ngModel)]="porcentajeResiduosOrdinariosAprovechables" readonly></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-text> Total Residuos Ordinarios: </ion-text>
+      <ion-input type="number" [(ngModel)]="totalResiduosOrdinarios" (ionChange)="calcularPorcentajes()" readonly></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-text> % Total Residuos Ordinarios: </ion-text>
+      <ion-input type="number" [(ngModel)]="porcentajeTotalResiduosOrdinarios" (ionChange)="calcularPorcentajes()" readonly></ion-input>
+    </ion-item>
+
+    <ion-item-divider color="light">Residuos Reciclables</ion-item-divider>
+    <ion-item>
+      <ion-text> Total Residuos Reciclables: </ion-text>
+      <ion-input type="number" [(ngModel)]="residuosReciclables" (ionChange)="calcularPorcentajes()" class="data-input"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-text> % Total Residuos Reciclables: </ion-text>
+      <ion-input type="number" [(ngModel)]="porcentajeResiduosReciclables" aria-label="% Residuos Reciclables" readonly></ion-input>
+    </ion-item>
+
+    <ion-item-divider color="light">Residuos Peligrosos</ion-item-divider>
+    <ion-item>
+      <ion-text> Total Residuos Biosantiarios: </ion-text>
+      <ion-input type="number" [(ngModel)]="residuosBiosanitarios" (ionChange)="calcularPorcentajes()" class="data-input"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-text> % Total Residuos Biosanitarios: </ion-text>
+      <ion-input type="number" [(ngModel)]="porcentajeResiduosBiosanitarios" readonly></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-text> Total Residuos Anatomopatológicos: </ion-text>
+      <ion-input type="number" [(ngModel)]="residuosAnatomopatologicos" (ionChange)="calcularPorcentajes()" class="data-input"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-text> % Total Residuos Anatomopatológicos: </ion-text>
+      <ion-input type="number" [(ngModel)]="porcentajeResiduosAnatomopatologicos" readonly></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-text> Total Residuos Cortopunzantes: </ion-text>
+      <ion-input type="number" [(ngModel)]="residuosCortopunzantes" (ionChange)="calcularPorcentajes()" class="data-input"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-text> % Total Residuos Cortopunzantes: </ion-text>
+      <ion-input type="number" [(ngModel)]="porcentajeResiduosCortopunzantes" readonly></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-text> Total Residuos Químicos: </ion-text>
+      <ion-input type="number" [(ngModel)]="residuosQuimicos" (ionChange)="calcularPorcentajes()" class="data-input"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-text> % Total Residuos Químicos: </ion-text>
+      <ion-input type="number" [(ngModel)]="porcentajeResiduosQuimicos" readonly></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-text> Total Residuos Peligrosos: </ion-text>
+      <ion-input type="number" [(ngModel)]="totalResiduosPeligrosos" (ionChange)="calcularPorcentajes()" readonly></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-text> % Total Residuos Peligrosos: </ion-text>
+      <ion-input type="number" [(ngModel)]="porcentajeResiduosPeligrosos" readonly></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-text> Total Residuos: </ion-text>
+      <ion-input type="number" [(ngModel)]="totalResiduos" aria-label="Total Residuos" readonly></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-button class="save-button" expand="full" (click)="guardarDatos()">Guardar</ion-button>
+    </ion-item>
+
+  </ion-list>
+</ion-content>

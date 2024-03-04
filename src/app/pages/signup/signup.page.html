@@ -1,0 +1,59 @@
+<ion-content [fullscreen]="true">
+  <section class="header">
+    <ion-title class="title">Bienvenido</ion-title>
+    <p class="subtitle">Regístrate para crear tu cuenta"</p>
+  </section>
+  <form [formGroup]="regForm" novalidate>
+    <section class="ion-padding">
+      <ion-item>
+        <ion-input class="input" placeholder="Nombre" formControlName="fullname"></ion-input>
+        <ion-icon name="person-outline"></ion-icon>
+      </ion-item>
+      <section class="warning" *ngIf="this.regForm.controls?.['fullname'].touched && this.regForm.controls?.['fullname'].invalid" >
+        <ion-text *ngIf="errorControl.fullname.errors?.required">
+          El nombre de usuario es obligatorio.
+        </ion-text>
+      </section>
+
+      <ion-item>
+        <ion-input class="input" placeholder="Email" formControlName="email"></ion-input>
+        <ion-icon name="mail-outline"></ion-icon>
+      </ion-item>
+      <section class="warning" *ngIf="this.regForm.controls?.['email'].touched && this.regForm.controls?.['email'].invalid" >
+        <ion-text *ngIf="errorControl.email.errors?.required">
+          El email es obligatorio.
+        </ion-text>
+        <ion-text *ngIf="errorControl.email.errors?.pattern">
+          El email es inválido.
+        </ion-text>
+      </section>
+
+      <ion-item>
+        <ion-input class="input" placeholder="contraseña" formControlName="password"></ion-input>
+        <ion-icon name="lock-closed-outline"></ion-icon>
+      </ion-item>
+      <section class="warning" *ngIf="this.regForm.controls?.['password'].touched && this.regForm.controls?.['password'].invalid" >
+        <ion-text *ngIf="errorControl.password.errors?.required">
+          La contraseña es obligatoria.
+        </ion-text>
+        <ion-text *ngIf="errorControl.password.errors?.pattern">
+          La contraseña es inválida.
+          Debe tener al menos 8 carácteres, una mayúscula, una minúscula, un número.
+        </ion-text>
+      </section>
+
+
+      <section class="login-link">
+        <p>¿Ya tienes cuenta? <a [routerLink]="['/login']">Inicia sesión</a></p>
+      </section>
+
+      <ion-fab class="arrow-icon">
+        <ion-fab-button (click)="signup()" >
+          <ion-icon name="chevron-forward" ></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+
+
+    </section>
+  </form>
+</ion-content>

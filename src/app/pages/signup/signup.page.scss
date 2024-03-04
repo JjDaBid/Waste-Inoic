@@ -1,0 +1,69 @@
+:root {
+  --white: #FFFFFF;
+  --black: #000000;
+  --very-light-pink: #C7C7C7;
+  --text-input-filed: #F7F7F7;
+  --hospital-green: #ACD9B2;
+}
+
+.header {
+  --very-light-pink: #C7C7C7;
+  margin-top: 100px;
+  margin-bottom: 80px;
+  text-align: center;
+
+  .subtitle {
+    color: var(--very-light-pink);
+    font-size: 1rem;
+  }
+}
+
+.input {
+  font-size: 300;
+}
+
+ion-item {
+  --text-input-filed: #F7F7F7;
+  --background: var(--text-input-filed);
+  border-radius: 10px;
+  margin-bottom: 16px;
+}
+
+.warning {
+  display: flex;
+  padding: 20px;
+  margin-top: -25px;
+  align-items: center;
+  color: red;
+}
+
+.login-link {
+  --hospital-green: #ACD9B2;
+  display: flex;
+  margin: auto;
+  flex-direction: row;
+  align-content: center;
+  position: absolute;
+  justify-content: center;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 80%;
+
+  p {
+    font-size: 0.9rem;
+  }
+  a {
+    text-decoration: none;
+    color: var(--hospital-green);
+  }
+
+}
+
+.arrow-icon {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin-bottom: 30px;
+  margin-right: 10px;
+}

@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "ionic-app-4b03a": {
+      "hosting": {
+        "app": [
+          "ionic-app-4b03a"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "ionic-app-4b03a"
+  }
+}

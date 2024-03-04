@@ -1,0 +1,94 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-buttons slot="start" class="menu-btn">
+      <ion-menu-button color="light"></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Inicio
+    </ion-title>
+  </ion-toolbar>
+  <ion-toolbar color="secondary">
+    <ion-searchbar animated="true" placeholder="Search"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="upperBox d-flex">
+    <div class="square">
+      <img src="../../assets/icon/medico.png" />
+    </div>
+    <div class="rectangle me-auto">
+      <h3>Formato RH1</h3>
+      <small class="text-muted">Control de Residuos</small>
+    </div>
+    <div class="carret align-self-center align-items-end" (click)="goToRh1()">
+      <ion-icon name="chevron-forward-outline"></ion-icon>
+    </div>
+  </div>
+</ion-content>
+
+
+
+
+<!-- <ion-header>
+  <ion-toolbar color="hospital-green">
+    <ion-title>
+      Bienvenido a la Clínica
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Horario de Hoy</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Citas Pendientes</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+<ion-button (click)="logout()">
+  Cerrar Sesión
+</ion-button> -->
+
+<!-- <ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Blank
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Blank</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div id="container">
+    <ion-title> Usuario: </ion-title>
+    <ion-title> [{{user}}] </ion-title>
+    <ion-title> Email: </ion-title>
+    <ion-title> {{user.email}} </ion-title>
+
+
+    <ion-button (click)="logout()">
+      Cerrar Sesión
+    </ion-button>
+
+    <strong>Ready to create an app?</strong>
+    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  </div>
+</ion-content> -->
