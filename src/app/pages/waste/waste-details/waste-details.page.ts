@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-
-import { WasteDataService } from 'src/app/services/waste-data.service';
+import { AuthenticationService } from 'src/app/authentication.service';
+import { WasteRegister } from 'src/app/models/wasteResgister.model';
 
 @Component({
   selector: 'app-waste-details',
@@ -11,21 +11,37 @@ import { WasteDataService } from 'src/app/services/waste-data.service';
 export class WasteDetailsPage {
   data: any;
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private wasteDataService: WasteDataService) {
+  constructor(private router: Router,
+              private activatedRoute: ActivatedRoute,
+              private firebaseService: AuthenticationService) {
     this.activatedRoute.params.subscribe(params => {
       if (params && params['date']) {
         const date = params['date'];
         this.loadData(date);
+        console.log("Desde details: ", date)
       }
     });
+  }
+
+  async loadData(date: string) {
+    this.data = await this.firebaseService.getWasteDetailsByDate(date);
+  }
+
+  async goToEdit() {
+    if (this.data) {
+      this.firebaseService.setWasteData(this.data); // Almacena los datos en el servicio
+      this.router.navigate(['/waste-form']); // Navega a la ruta waste-form
+    }
   }
 
   async goBackWaste(){
     this.router.navigate(['/waste']);
   }
 
-  loadData(date: string) {
-    // Utiliza el servicio WasteDataService para obtener los detalles de los residuos utilizando la fecha proporcionada
-    this.data = this.wasteDataService.getWasteDetailsByDate(date);
+  formatDate(date: any): string {
+    const formattedDate = new Date(date).toLocaleDateString('es-ES');
+    return formattedDate;
   }
+
+
 }

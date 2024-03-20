@@ -14,51 +14,59 @@
 <ion-content>
   <ion-card *ngIf="data" class="p-6 bg-white rounded-lg shadow-md">
     <ion-card-header>
-      <ion-item-divider color="light">Fecha: {{ data.fecha }}</ion-item-divider>
+      <ion-item-divider color="light">Fecha: {{ formatDate(data.fecha) }}</ion-item-divider>
     </ion-card-header>
 
 
     <ion-card-content class="flex items-center">
 
-      <div class="mt-4">
-        <ion-img [src]="data.fotoCapturada" alt="Imagen de residuos" class="w-32 h-32 object-cover rounded-lg"></ion-img>
-      </div>
+      <section class="card-container">
+
+        <div class="image-container">
+          <ion-img [src]="data.image" alt="Imagen de residuos" class="image"></ion-img>
+        </div>
 
 
-      <div class="flex flex-wrap gap-4 items-start">
-        <div class="w-full md:w-1/2 lg:w-1/3">
-          <ion-label class="font-semibold">Residuos Ordinarios No Aprovechables: </ion-label>
-          <ion-text>{{ data.residuosOrdinariosNoAprovechables }} Kg</ion-text>
+        <div class="data-container">
+          <div class="w-full md:w-1/2 lg:w-1/3">
+            <ion-label class="font-semibold">Residuos Ordinarios No Aprovechables: </ion-label>
+            <ion-text>{{ data.residuosOrdinariosNoAprovechables }} Kg</ion-text>
+          </div>
+          <div class="w-full md:w-1/2 lg:w-1/3">
+            <ion-label class="font-semibold">Residuos Ordinarios Aprovechables: </ion-label>
+            <ion-text>{{ data.residuosOrdinariosAprovechables }} Kg</ion-text>
+          </div>
+          <div class="w-full md:w-1/2 lg:w-1/3">
+            <ion-label class="font-semibold">Residuos Reciclables: </ion-label>
+            <ion-text>{{ data.residuosReciclables }} Kg</ion-text>
+          </div>
+          <div class="w-full md:w-1/2 lg:w-1/3">
+            <ion-label class="font-semibold">Residuos Biosanitarios: </ion-label>
+            <ion-text>{{ data.residuosBiosanitarios }} Kg</ion-text>
+          </div>
+          <div class="w-full md:w-1/2 lg:w-1/3">
+            <ion-label class="font-semibold">Residuos Anatomopatologicos: </ion-label>
+            <ion-text>{{ data.residuosAnatomopatologicos }} Kg</ion-text>
+          </div>
+          <div class="w-full md:w-1/2 lg:w-1/3">
+            <ion-label class="font-semibold">Residuos Cortopunzantes: </ion-label>
+            <ion-text>{{ data.residuosCortopunzantes }} Kg</ion-text>
+          </div>
+          <div class="w-full md:w-1/2 lg:w-1/3">
+            <ion-label class="font-semibold">Residuos Quimicos:</ion-label>
+            <ion-text>{{ data.residuosQuimicos }} Kg</ion-text>
+          </div>
+          <div class="w-full">
+            <ion-label class="total">Total de Residuos: </ion-label>
+            <ion-text class="total">{{ data.totalResiduos }} Kg</ion-text>
+          </div>
         </div>
-        <div class="w-full md:w-1/2 lg:w-1/3">
-          <ion-label class="font-semibold">Residuos Ordinarios Aprovechables: </ion-label>
-          <ion-text>{{ data.residuosOrdinariosAprovechables }} Kg</ion-text>
-        </div>
-        <div class="w-full md:w-1/2 lg:w-1/3">
-          <ion-label class="font-semibold">Residuos Reciclables: </ion-label>
-          <ion-text>{{ data.residuosReciclables }} Kg</ion-text>
-        </div>
-        <div class="w-full md:w-1/2 lg:w-1/3">
-          <ion-label class="font-semibold">Residuos Biosanitarios: </ion-label>
-          <ion-text>{{ data.residuosBiosanitarios }} Kg</ion-text>
-        </div>
-        <div class="w-full md:w-1/2 lg:w-1/3">
-          <ion-label class="font-semibold">Residuos Anatomopatologicos: </ion-label>
-          <ion-text>{{ data.residuosAnatomopatologicos }} Kg</ion-text>
-        </div>
-        <div class="w-full md:w-1/2 lg:w-1/3">
-          <ion-label class="font-semibold">Residuos Cortopunzantes: </ion-label>
-          <ion-text>{{ data.residuosCortopunzantes }} Kg</ion-text>
-        </div>
-        <div class="w-full md:w-1/2 lg:w-1/3">
-          <ion-label class="font-semibold">Residuos Quimicos:</ion-label>
-          <ion-text>{{ data.residuosQuimicos }} Kg</ion-text>
-        </div>
-        <div class="w-full">
-          <ion-label class="font-semibold">Total de Residuos: </ion-label>
-          <ion-text>{{ data.totalResiduos }} Kg</ion-text>
-        </div>
-      </div>
+      </section>
+
+      <section class="button-section">
+        <button class="edit-button" (click)="goToEdit()">Editar</button>
+        <button class="delete-button">Eliminar</button>
+      </section>
 
     </ion-card-content>
   </ion-card>

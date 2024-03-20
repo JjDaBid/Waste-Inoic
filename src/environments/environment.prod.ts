@@ -10,3 +10,16 @@ export const environment = {
   }
 };
 
+
+// export const environment = {
+//   production: false,
+//   firebaseConfig: {
+//     apiKey: "AIzaSyDYm3ybcr7AaGXNSp0BA0wkoC-vPSWcw3w",
+//     authDomain: "ionic-629bf.firebaseapp.com",
+//     projectId: "ionic-629bf",
+//     storageBucket: "ionic-629bf.appspot.com",
+//     messagingSenderId: "131784288389",
+//     appId: "1:131784288389:web:927c0d4fdecd4c15abe1ec",
+//   }
+// };
+

@@ -16,12 +16,6 @@
 
 ion-item {
 
-  .photo-button {
-    width: 100%;
-    display: flex;
-    background-color: #ACD9B2;
-  }
-
   ion-label {
     width: 40%;
     margin-right: 10px;
@@ -33,32 +27,113 @@ ion-item {
     width: 70%;
   }
 
+  .data-input{
+    background-color: white;
+    border: 1px solid #000000;
+    &::after {
+      content: "Kg";
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--ion-color-primary); /* Cambia el color según tus necesidades */
+    }
+  }
+
+  .percentage{
+    --very-light-pink: #C7C7C7;
+    background: var(--very-light-pink);
+    border: 1px solid #000000;
+    &::after {
+      content: "%";
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--ion-color-primary); /* Cambia el color según tus necesidades */
+    }
+  }
+
+  .total{
+    --very-light-pink: #C7C7C7;
+    background: var(--very-light-pink);
+    border: 1px solid #000000;
+    font-weight: bold;
+    &::after {
+      content: "Kg";
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--ion-color-primary); /* Cambia el color según tus necesidades */
+    }
+  }
+
   ion-input {
     --very-light-pink: #C7C7C7;
     background: var(--very-light-pink);
     width: 30%;
     padding: 20px;
     border-radius: 5px;
-
     ::ng-deep input {
       margin-left: 20px;
     }
 
   }
 
-  .data-input{
-    background-color: white;
-    border: 1px solid #000000;
-    border-radius: 5px;
+  .photo-button {
+    width: 100%;
+    height: 50px;
   }
 
   .save-button {
+    margin-top: 50px;
     width: 100%;
-    height: 50px; /* Ajusta la altura según sea necesario */
-    padding: 0 20px; /* Ajusta el padding horizontal según sea necesario */
-    border-radius: 10px;
+    height: 50px;
+    padding: 0 20px;
+    border-radius: 20px;
   }
 
+}
+
+ion-item-divider{
+  font-weight: bold;
+}
+
+.photo-container{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.image-icon{
+  font-size: 100px;
+  opacity: 30%;
+  width: 200px;
+  height: 160px;
+  align-items: cente;
+  margin: auto;
+}
+
+ion-avatar{
+  width: 200px;
+  height: 160px;
+  --border-radius: 15px;
+  margin: 0 auto;
+}
+
+.date-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+ion-datetime {
+  width: auto;
+  margin: 0 auto;
 }
 
 .arrow-back-icon {

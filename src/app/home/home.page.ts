@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/authentication.service';
+import { UtilsService } from '../services/utils.service';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +10,8 @@ import { AuthenticationService } from 'src/app/authentication.service';
 })
 export class HomePage {
 
-
+  firebaseService = inject(AuthenticationService);
+  utilsService = inject(UtilsService);
 
   user:any
 
@@ -21,11 +23,7 @@ export class HomePage {
   }
 
   async logout(){
-    this.authService.signOut().then(() => {
-      this.route.navigate(['/landing'])
-    }).catch((error) => {
-      console.log(error);
-    })
+    this.firebaseService.signOut();
   }
 
   async goToRh1(){

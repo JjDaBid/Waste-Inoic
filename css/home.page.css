@@ -1,0 +1,44 @@
+ion-content {
+  --background: #f7f9fc;
+}
+ion-content .upperBox {
+  background-color: #fff;
+  margin: 20px 20px 0px 20px;
+  padding: 20px;
+}
+ion-content .upperBox .square {
+  width: 60px;
+  height: 60px;
+}
+ion-content .upperBox .rectangle {
+  padding-left: 20px;
+}
+ion-content .upperBox .lowerBox {
+  display: flex;
+  width: 100%;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  gap: 10px;
+  padding: 20px;
+}
+ion-content .upperBox .lowerBox .square {
+  display: block;
+  background-color: red;
+  flex: 1;
+  padding: 20px;
+  height: auto;
+}
+ion-content .upperBox .lowerBox .square h6 {
+  color: #ff6d00;
+}
+ion-content .upperBox .lowerBox .square p {
+  margin-top: -10px !important;
+}
+
+.logout-button {
+  width: 100%;
+  padding: 15px;
+  border-radius: 10px;
+  background-color: #000000;
+  margin-bottom: 10px;
+}/*# sourceMappingURL=home.page.css.map */

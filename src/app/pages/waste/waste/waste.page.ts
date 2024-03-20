@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { WasteDataService } from 'src/app/services/waste-data.service';
+import { AuthenticationService } from 'src/app/authentication.service';
+import { User } from 'src/app/models/user.model';
+import { WasteRegister } from 'src/app/models/wasteResgister.model';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-waste',
@@ -8,12 +11,15 @@ import { WasteDataService } from 'src/app/services/waste-data.service';
   styleUrls: ['./waste.page.scss'],
 })
 export class WastePage implements OnInit {
-  wasteData: any[];
 
-  constructor(private router: Router, private wasteDataService: WasteDataService) { }
+  wasteData: WasteRegister[] = [];
+
+  constructor(private router: Router,
+              private firebaseService: AuthenticationService,
+              private utilService: UtilsService) { }
 
   ngOnInit() {
-    this.wasteData = this.wasteDataService.getWasteData();
+    this.getRegisters();
   }
 
   async goBackHome(){
@@ -24,15 +30,38 @@ export class WastePage implements OnInit {
     this.router.navigate(['/waste-form']);
   }
 
+  user(): User{
+    return this.utilService.getFromLocalStorage('user');
+  }
+
+  ionViewWillEnter(){
+    this.getRegisters();
+  }
+
+  getRegisters(){
+    const path = `users/${this.user().uid}/wastes`;
+
+    const sub = this.firebaseService.getCollectionData(path).subscribe({
+      next: (res: any) => {
+        console.log(res);
+        this.wasteData = res;
+        sub.unsubscribe();
+      }
+    });
+  }
+
   async viewDetails(data: any) {
-    console.log("data: ", data)
-    console.log("data.fecha: ", data.fecha)
-    // Verificar si data y data.fecha están definidos antes de navegar
-    if (data) {
-      // Navegar solo si ambos están definidos
-      this.router.navigate(['/waste-details', data]);
+    console.log("data: ", data);
+    if (data && data.fecha) {
+      this.router.navigate(['/waste-details', data.fecha]);
     } else {
       console.error('Fecha indefinida: No se puede navegar a la página de detalles');
     }
   }
+
+  formatDate(date: any): string {
+    const formattedDate = new Date(date).toLocaleDateString('es-ES');
+    return formattedDate;
+  }
 }
+

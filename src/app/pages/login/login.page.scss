@@ -20,6 +20,7 @@
 
 .input {
   font-size: 300;
+  margin-left: 20px;
 }
 
 ion-item {
@@ -35,6 +36,15 @@ ion-item {
   margin-top: -25px;
   align-items: center;
   color: red;
+}
+
+.login-button {
+  color: white;
+  width: 100%;
+  padding: 15px;
+  border-radius: 10px;
+  background-color: #000000;
+  margin-bottom: 10px;
 }
 
 .signup-link {

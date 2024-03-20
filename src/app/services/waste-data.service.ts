@@ -1,23 +1,22 @@
-// waste-data.service.ts
 import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WasteDataService {
-  private wasteData: any[] = [];
+  // private wasteData: any[] = [];
 
-  constructor() { }
+  // constructor() { }
 
-  getWasteData(): any[] {
-    return this.wasteData;
-  }
+  // getWasteData(): any[] {
+  //   return this.wasteData;
+  // }
 
-  addWasteData(data: any) {
-    this.wasteData.push(data);
-  }
+  // addWasteData(data: any) {
+  //   this.wasteData.push(data);
+  // }
 
-  getWasteDetailsByDate(date: string): any {
-    return this.wasteData.find(item => item.fecha === date);
-  }
+  // getWasteDetailsByDate(date: string): any {
+  //   return this.wasteData.find(item => item.fecha === date);
+  // }
 }

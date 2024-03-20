@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { AuthenticationService } from 'src/app/authentication.service';
-import { Router } from '@angular/router';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-reset-password',
@@ -8,23 +9,48 @@ import { Router } from '@angular/router';
   styleUrls: ['./reset-password.page.scss'],
 })
 export class ResetPasswordPage implements OnInit {
-  email:any
 
-  constructor(
-    public route: Router,
-    public authService: AuthenticationService,
-  ) { }
+  form = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+  })
 
-  ngOnInit() {
+  firebaseService = inject(AuthenticationService);
+  utilService = inject(UtilsService);
+
+  ngOnInit(){
+
   }
 
   async resetPassword(){
-    this.authService.resetPassword(this.email).then(() => {
-      console.log('link sent')
-      this.route.navigate(['/login'])
-    }).catch((error) => {
-      console.log(error)
-    });
+    if(this.form.valid){
+      const loading = await this.utilService.loading();
+      await loading.present();
+      this.firebaseService.resetPassword(this.form.value.email).then(res => {
+
+        this.utilService.presentToast({
+          message: "Correo enviado con exito",
+          duration: 1500,
+          color: "#ffffff",
+          position: "middle",
+          icon: "mail-outline"
+        })
+
+        this.utilService.routerLink('/login');
+        this.form.reset;
+
+      }).catch(error => {
+        console.log(error)
+        this.utilService.presentToast({
+          message: error.message,
+          duration: 2500,
+          color: "#ffffff",
+          position: "middle",
+          icon: "alert-cicle-outline"
+        })
+      }).finally(() => {
+        loading.dismiss();
+      })
+    }
   }
 
 }

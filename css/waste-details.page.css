@@ -1,0 +1,20 @@
+.toolbar-control {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  align-items: center;
+}
+.toolbar-control ion-title {
+  margin-left: 80px;
+}
+
+.arrow-back-icon {
+  justify-self: start;
+}
+
+.arrow-icon {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin-bottom: 30px;
+  margin-right: 10px;
+}/*# sourceMappingURL=waste-details.page.css.map */

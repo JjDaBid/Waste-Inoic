@@ -6,53 +6,65 @@
   <form [formGroup]="regForm" novalidate>
     <section class="ion-padding">
       <ion-item>
-        <ion-input class="input" placeholder="Nombre" formControlName="fullname"></ion-input>
         <ion-icon name="person-outline"></ion-icon>
+        <ion-input class="input" placeholder="Nombre" formControlName="name"></ion-input>
       </ion-item>
-      <section class="warning" *ngIf="this.regForm.controls?.['fullname'].touched && this.regForm.controls?.['fullname'].invalid" >
-        <ion-text *ngIf="errorControl.fullname.errors?.required">
+      <section class="validators" *ngIf="regForm.controls.name.errors && regForm.controls.name.touched" >
+        <ion-text *ngIf="regForm.controls.name.errors?.['required']">
           El nombre de usuario es obligatorio.
+        </ion-text>
+        <ion-text *ngIf="regForm.controls.name.errors?.['minlength']">
+          El nombre de usuario debe tener al menos 6 caracteres
         </ion-text>
       </section>
 
       <ion-item>
-        <ion-input class="input" placeholder="Email" formControlName="email"></ion-input>
         <ion-icon name="mail-outline"></ion-icon>
+        <ion-input class="input" placeholder="Email" formControlName="email"></ion-input>
       </ion-item>
-      <section class="warning" *ngIf="this.regForm.controls?.['email'].touched && this.regForm.controls?.['email'].invalid" >
-        <ion-text *ngIf="errorControl.email.errors?.required">
+      <section class="warning" *ngIf="regForm.get('email').touched && regForm.get('email').invalid" >
+        <ion-text *ngIf="regForm.get('email').errors?.required">
           El email es obligatorio.
         </ion-text>
-        <ion-text *ngIf="errorControl.email.errors?.pattern">
+        <ion-text *ngIf="regForm.get('email').errors?.pattern">
           El email es inválido.
         </ion-text>
       </section>
 
       <ion-item>
-        <ion-input class="input" placeholder="contraseña" formControlName="password"></ion-input>
         <ion-icon name="lock-closed-outline"></ion-icon>
+          <ion-input class="input" placeholder="Contraseña" formControlName="password" type="{{ hidePassword ? 'password' : 'text' }}"></ion-input>
+          <ion-button slot="end" fill="clear" shape="round" (click)="showOrHidePassword()">
+            <ion-icon slot="icon-only" [name]="hidePassword ? 'eye-outline' : 'eye-off-outline' "></ion-icon>
+          </ion-button>
       </ion-item>
-      <section class="warning" *ngIf="this.regForm.controls?.['password'].touched && this.regForm.controls?.['password'].invalid" >
-        <ion-text *ngIf="errorControl.password.errors?.required">
+      <section class="warning" *ngIf="this.regForm.get('password').touched && this.regForm.get('password').invalid" >
+        <ion-text *ngIf="regForm.get('password').errors?.required">
           La contraseña es obligatoria.
         </ion-text>
-        <ion-text *ngIf="errorControl.password.errors?.pattern">
+        <ion-text *ngIf="regForm.get('password').errors?.pattern">
           La contraseña es inválida.
           Debe tener al menos 8 carácteres, una mayúscula, una minúscula, un número.
         </ion-text>
       </section>
 
+      <section>
+        <button class="register-button" (click)="signup()">
+          Registrar
+        </button>
+      </section>
 
       <section class="login-link">
         <p>¿Ya tienes cuenta? <a [routerLink]="['/login']">Inicia sesión</a></p>
       </section>
 
-      <ion-fab class="arrow-icon">
+
+
+      <!-- <ion-fab class="arrow-icon">
         <ion-fab-button (click)="signup()" >
           <ion-icon name="chevron-forward" ></ion-icon>
         </ion-fab-button>
-      </ion-fab>
-
+      </ion-fab> -->
 
     </section>
   </form>
