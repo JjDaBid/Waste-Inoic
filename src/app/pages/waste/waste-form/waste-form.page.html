@@ -16,7 +16,9 @@
 
     <section>
 
-      <form [formGroup]="form" novalidate>
+      <ion-title>{{ formTitle }}</ion-title>
+
+      <form  [formGroup]="form" novalidate >
 
         <ion-item-divider color="light">Imágen</ion-item-divider>
         <br/>
@@ -142,7 +144,10 @@
           </ion-item>
 
           <ion-item>
-            <ion-button class="save-button" expand="full" (click)="saveData()">Guardar</ion-button>
+            <!-- Renderizar el botón Guardar solo si el título del formulario es "Crear Registro" y el ID del registro no está definido -->
+            <ion-button *ngIf="formTitle === 'Crear Registro' && !dataId" class="save-button" expand="full" (click)="saveData()">Guardar</ion-button>
+            <!-- Renderizar el botón Editar solo si el título del formulario es "Editar Registro" -->
+            <ion-button *ngIf="formTitle === 'Editar Registro'" class="save-button" expand="full" (click)="editData()">Editar</ion-button>
           </ion-item>
 
 

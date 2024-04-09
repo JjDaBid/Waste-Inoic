@@ -43,7 +43,6 @@ export class WastePage implements OnInit {
 
     const sub = this.firebaseService.getCollectionData(path).subscribe({
       next: (res: any) => {
-        console.log(res);
         this.wasteData = res;
         sub.unsubscribe();
       }
@@ -51,9 +50,15 @@ export class WastePage implements OnInit {
   }
 
   async viewDetails(data: any) {
-    console.log("data: ", data);
-    if (data && data.fecha) {
-      this.router.navigate(['/waste-details', data.fecha]);
+    console.log("");
+    console.log("================================");
+    console.log("viewDetails()");
+    console.log("ID: ", data.id);
+    console.log("Esta es la informacion que hay: ");
+    console.log("Data: ", data);
+    if (data && data.id) {
+      this.router.navigate(['/waste-details', data.id]);
+      console.log("Si entro al IF")
     } else {
       console.error('Fecha indefinida: No se puede navegar a la página de detalles');
     }

@@ -4,19 +4,21 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class WasteDataService {
-  // private wasteData: any[] = [];
+  private wasteData: any;
+  private _isEditing: boolean = false;
 
-  // constructor() { }
+  constructor() { }
 
-  // getWasteData(): any[] {
-  //   return this.wasteData;
+  // setWasteData(data: any, isEditing: boolean) {
+  //   this.wasteData = { ...data }; // Copiar los datos para evitar referencias
+  //   this._isEditing = isEditing;
   // }
 
-  // addWasteData(data: any) {
-  //   this.wasteData.push(data);
+  // getWasteData() {
+  //   return { ...this.wasteData }; // Devolver una copia de los datos para evitar modificaciones inesperadas
   // }
 
-  // getWasteDetailsByDate(date: string): any {
-  //   return this.wasteData.find(item => item.fecha === date);
+  // isEditing() {
+  //   return this._isEditing;
   // }
 }

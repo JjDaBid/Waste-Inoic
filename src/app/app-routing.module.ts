@@ -40,7 +40,12 @@ const routes: Routes = [
   },
 
   {
-    path: 'waste-details/:date',
+    path: 'waste-form/:id',
+    loadChildren: () => import('./pages/waste/waste-form/waste-form.module').then( m => m.WasteFormPageModule)
+  },
+
+  {
+    path: 'waste-details/:id',
     loadChildren: () => import('./pages/waste/waste-details/waste-details.module').then( m => m.WasteDetailsPageModule)
   },
 

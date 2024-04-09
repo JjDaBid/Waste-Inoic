@@ -1,12 +1,10 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Camera, CameraResultType } from '@capacitor/camera';
-import { WasteDataService } from 'src/app/services/waste-data.service';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { AuthenticationService } from 'src/app/authentication.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { User } from 'src/app/models/user.model';
-
 
 @Component({
   selector: 'app-waste-form',
@@ -14,6 +12,9 @@ import { User } from 'src/app/models/user.model';
   styleUrls: ['./waste-form.page.scss'],
 })
 export class WasteFormPage implements OnInit {
+
+  data: any;
+  dataId: string;
 
   form = new FormGroup({
     id: new FormControl(''),
@@ -41,23 +42,95 @@ export class WasteFormPage implements OnInit {
   })
 
   isMobile: boolean;
-
-  firebaseService = inject(AuthenticationService);
-  utilService = inject(UtilsService);
   user = {} as User;
+  formTitle: string = 'Crear Registro';
+
+  constructor(
+    private route: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
+    private firebaseService: AuthenticationService,
+    private utilService: UtilsService,
+  ) {
+
+    this.activatedRoute.params.subscribe(params => {
+
+      console.log("")
+      console.log("============================")
+      console.log("Ya estoy en wasteForm")
+      console.log("Y esta es la Data que puedo observar en details: ")
+      console.log("Params: ", params)
+
+      const dataId = params['id']; // Extraer el ID directamente
+      if (dataId) {
+        this.loadData(dataId);
+        console.log("Desde waste-Form: ", dataId)
+      } else {
+        console.error('ID de residuo indefinido: No se pueden cargar los detalles del residuo.');
+      }
+    });
+
+  }
 
   ngOnInit() {
-    this.user = this.utilService.getFromLocalStorage('user')
-    this.calculatePercentages();
+    this.user = this.utilService.getFromLocalStorage('user');
     this.detectarDispositivo();
 
+    this.route.params.subscribe(async params => {
+      const dataId = params['id'];
+      if (dataId) {
+        this.loadData(dataId);
+      } else {
+        this.initializeForm();
+      }
+    });
+  }
+
+  initializeForm() {
+    this.form.reset();
     const currentDate = new Date().toISOString();
     this.form.get('fecha').setValue(currentDate);
+    this.formTitle = 'Crear Registro';
+  }
+
+  async loadData(id: string) {
+    this.dataId = id;
+    this.data = await this.firebaseService.getWasteDetailsById(id);
+
+    // Llenar el formulario con los datos obtenidos
+    this.form.patchValue({
+      id: this.data.id,
+      fecha: this.data.fecha,
+      residuosOrdinariosNoAprovechables: this.data.residuosOrdinariosNoAprovechables,
+      porcentajeResiduosOrdinariosNoAprovechables: this.data.porcentajeResiduosOrdinariosNoAprovechables,
+      residuosOrdinariosAprovechables: this.data.residuosOrdinariosAprovechables,
+      porcentajeResiduosOrdinariosAprovechables: this.data.porcentajeResiduosOrdinariosAprovechables,
+      totalResiduosOrdinarios: this.data.totalResiduosOrdinarios,
+      porcentajeTotalResiduosOrdinarios: this.data.porcentajeTotalResiduosOrdinarios,
+      residuosReciclables: this.data.residuosReciclables,
+      porcentajeResiduosReciclables: this.data.porcentajeResiduosReciclables,
+      residuosBiosanitarios: this.data.residuosBiosanitarios,
+      porcentajeResiduosBiosanitarios: this.data.porcentajeResiduosBiosanitarios,
+      residuosAnatomopatologicos: this.data.residuosAnatomopatologicos,
+      porcentajeResiduosAnatomopatologicos: this.data.porcentajeResiduosAnatomopatologicos,
+      residuosCortopunzantes: this.data.residuosCortopunzantes,
+      porcentajeResiduosCortopunzantes: this.data.porcentajeResiduosCortopunzantes,
+      residuosQuimicos: this.data.residuosQuimicos,
+      porcentajeResiduosQuimicos: this.data.porcentajeResiduosQuimicos,
+      totalResiduosPeligrosos: this.data.totalResiduosPeligrosos,
+      porcentajeResiduosPeligrosos: this.data.porcentajeResiduosPeligrosos,
+      totalResiduos: this.data.totalResiduos,
+      image: this.data.image
+    });
+    this.formTitle = 'Editar Registro';
   }
 
   async takeImage(){
-    const dataUrl = (await this.utilService.takePicture("imagen del producto")).dataUrl;
-    this.form.controls.image.setValue(dataUrl)
+    const photo = await Camera.getPhoto({
+      resultType: CameraResultType.Base64,
+      quality: 100
+    });
+    const dataUrl = `data:image/jpeg;base64,${photo.base64String}`;
+    this.form.controls.image.setValue(dataUrl);
   }
 
   detectarDispositivo() {
@@ -73,7 +146,6 @@ export class WasteFormPage implements OnInit {
     const residuosAnatomopatologicos = parseFloat(this.form.get('residuosAnatomopatologicos').value);
     const residuosCortopunzantes = parseFloat(this.form.get('residuosCortopunzantes').value);
     const residuosQuimicos = parseFloat(this.form.get('residuosQuimicos').value);
-
     const totalResiduosOrdinarios = residuosOrdinariosNoAprovechables + residuosOrdinariosAprovechables;
     const totalResiduosPeligrosos = residuosBiosanitarios + residuosAnatomopatologicos + residuosCortopunzantes + residuosQuimicos;
     const totalResiduos = totalResiduosOrdinarios + residuosReciclables + totalResiduosPeligrosos;
@@ -107,6 +179,9 @@ export class WasteFormPage implements OnInit {
       this.form.get('totalResiduos').setValue("0");
     }
   }
+
+
+
 
   async saveData(){
     if(this.form.valid){
@@ -152,7 +227,78 @@ export class WasteFormPage implements OnInit {
 
   }
 
+
+  async editData() {
+
+    console.log("")
+    console.log("===================================")
+    console.log("editData()")
+
+
+
+
+    if (this.form.valid) {
+        const loading = await this.utilService.loading();
+        await loading.present();
+
+        const dataUrl = this.form.value.image;
+        console.log("dataUrl: ", dataUrl)
+
+
+        let imagePath = this.data.image; // Obtener la ruta de la imagen actual del registro
+        console.log("imagePath: ", imagePath)
+
+
+        let imageUrl = null;
+
+        // Verificar si se ha seleccionado una nueva imagen
+        if (dataUrl !== imagePath) {
+            // Eliminar la imagen anterior del Storage
+            await this.firebaseService.deleteImage(imagePath);
+
+            // Subir la nueva imagen al Storage
+            imagePath = `${this.user.uid}/${Date.now()}`;
+            imageUrl = await this.firebaseService.uploadImage(imagePath, dataUrl);
+        }
+
+        // Actualizar los datos del formulario con la nueva ruta de la imagen
+        this.form.controls.image.setValue(imageUrl || imagePath);
+
+        // Obtener el ID del registro
+        const dataId = this.dataId;
+        console.log("dataId: ", dataId)
+
+        // Eliminar el ID del objeto de datos para evitar problemas al actualizar
+        delete this.form.value.id;
+
+        // Actualizar el registro en Firestore
+        const path = `users/${this.user.uid}/wastes/${dataId}`;
+        await this.firebaseService.updateDocument(path, this.form.value);
+
+        // Mostrar un mensaje de éxito y redirigir a la página de listado de residuos
+        this.utilService.presentToast({
+            message: "Registro actualizado exitosamente",
+            duration: 1500,
+            color: "success",
+            position: "middle",
+            icon: "checkmark-circle-outline"
+        });
+
+        loading.dismiss();
+        this.utilService.routerLink('/waste');
+    }
+}
+
+
+
+
+
+
+
+
+
   async goBackWaste() {
+    this.form.reset();
     this.utilService.routerLink('/waste');
   }
 
