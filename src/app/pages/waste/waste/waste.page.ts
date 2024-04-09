@@ -30,6 +30,12 @@ export class WastePage implements OnInit {
     this.router.navigate(['/waste-form']);
   }
 
+  async goToReport(){
+    this.router.navigate(['/waste-report']);
+  }
+
+
+
   user(): User{
     return this.utilService.getFromLocalStorage('user');
   }

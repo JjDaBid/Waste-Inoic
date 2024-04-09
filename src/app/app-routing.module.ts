@@ -48,6 +48,10 @@ const routes: Routes = [
     path: 'waste-details/:id',
     loadChildren: () => import('./pages/waste/waste-details/waste-details.module').then( m => m.WasteDetailsPageModule)
   },
+  {
+    path: 'waste-report',
+    loadChildren: () => import('./pages/waste/waste-report/waste-report.module').then( m => m.WasteReportPageModule)
+  },
 
 
 ];

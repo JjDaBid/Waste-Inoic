@@ -9,6 +9,16 @@ import { UtilsService } from './services/utils.service';
 import { uploadString, ref, getDownloadURL, deleteObject, getStorage } from 'firebase/storage';
 import { orderBy } from 'firebase/firestore';
 
+
+interface Waste {
+  reciclables: number;
+  biosanitarios: number;
+  anatomopat: number;
+  cortopunzantes: number;
+  quimicos: number;
+}
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -205,4 +215,51 @@ export class AuthenticationService {
       console.error('Error al eliminar el registro de residuo:', error);
     }
   }
+
+
+
+
+
+  async getWasteTotalsByDateRange(user: User, initialDate: Date, finalDate: Date): Promise<any> {
+    const userId = user.uid;
+    if (userId) {
+      const path = `users/${userId}/wastes`;
+      const querySnapshot = await this.firestore.collection(path, ref =>
+        ref.where('fecha', '>=', initialDate).where('fecha', '<=', finalDate)).get();
+      let totals = {
+        residuosOrdinariosNoAprovechables: 0,
+        residuosOrdinariosAprovechables: 0,
+        totalResiduosOrdinarios: 0,
+        residuosReciclables: 0,
+        residuosBiosanitarios: 0,
+        residuosAnatomopatologicos: 0,
+        residuosCortopunzantes: 0,
+        residuosQuimicos: 0,
+        totalResiduosPeligrosos: 0,
+        totalResiduos: 0
+      };
+
+      console.log("")
+      console.log("==============================")
+      console.log("getWasteTotalsByDateRange()")
+
+      console.log("")
+      console.log(totals)
+
+      return totals;
+    } else {
+      console.error('Usuario no autenticado: No se pueden obtener los totales de residuos.');
+      return null;
+    }
+
+
+  }
+
+
+
+
+
+
+
+
 }

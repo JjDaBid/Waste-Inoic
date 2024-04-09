@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from 'src/app/authentication.service';
-import { WasteRegister } from 'src/app/models/wasteResgister.model';
-import { WasteDataService } from 'src/app/services/waste-data.service';
 
 @Component({
   selector: 'app-waste-details',
@@ -16,7 +14,6 @@ export class WasteDetailsPage {
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
               private firebaseService: AuthenticationService,
-              private wasteDataService: WasteDataService
               ) {
     this.activatedRoute.params.subscribe(params => {
 
