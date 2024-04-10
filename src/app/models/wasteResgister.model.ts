@@ -10,4 +10,13 @@ export interface WasteRegister{
   residuosCortopunzantes: string,
   residuosQuimicos: string,
   totalResiduos: string
+
+  porcentajeResiduosOrdinariosNoAprovechables: string,
+  porcentajeResiduosOrdinariosAprovechables: string,
+  porcentajeResiduosReciclables: string,
+  porcentajeResiduosBiosanitarios: string,
+  porcentajeResiduosAnatomopatologicos: string,
+  porcentajeResiduosCortopunzantes: string,
+  porcentajeResiduosQuimicos: string,
+  porcentajeTotalResiduos: string
 }

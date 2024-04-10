@@ -1,15 +1,12 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>waste-report</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">waste-report</ion-title>
-    </ion-toolbar>
-  </ion-header>
+
+  <div class="header">
+    <app-header></app-header>
+  </div>
+
+  <div class="title-container">
+    <h2 class="title">Reporte</h2>
+  </div>
 
   <section class="dates">
 
@@ -31,7 +28,7 @@
 
     </section>
 
-    <section>
+    <section class="button-container">
       <ion-button expand="block" (click)="filterData()">Buscar</ion-button>
     </section>
 
@@ -57,14 +54,23 @@
         <ng-container>
           <tr >
             <td class="d-none d-md-table-cell"> {{ totalResiduosOrdinariosNoAprovechables }} Kg</td>
-            <td class="d-none d-md-table-cell"> {{ totalResiduosOrdinariosAprovechables }} kg</td>
-            <td class="d-none d-md-table-cell"> {{ totalResiduosReciclables }} kg</td>
+            <td class="d-none d-md-table-cell"> {{ totalResiduosOrdinariosAprovechables }} Kg</td>
+            <td class="d-none d-md-table-cell"> {{ totalResiduosReciclables }} Kg</td>
             <td class="d-none d-md-table-cell"> {{ totalResiduosBiosanitarios }} Kg</td>
             <td class="d-none d-md-table-cell"> {{ totalResiduosAnatomopatologicos }} Kg</td>
             <td class="d-none d-md-table-cell"> {{ totalResiduosCortopunzantes }} Kg</td>
             <td class="d-none d-md-table-cell"> {{ totalResiduosQuimicos }} Kg</td>
-            <td> {{ totalResiduos }} Kg</td>
-
+            <td><span>{{ totalResiduos }} Kg</span></td>
+          </tr>
+          <tr >
+            <td class="d-none d-md-table-cell"> {{ porcentajeTotalResiduosOrdinariosNoAprovechables }} %</td>
+            <td class="d-none d-md-table-cell"> {{ porcentajeTotalResiduosOrdinariosAprovechables }} %</td>
+            <td class="d-none d-md-table-cell"> {{ porcentajeTotalResiduosReciclables }} %</td>
+            <td class="d-none d-md-table-cell"> {{ porcentajeTotalResiduosBiosanitarios }} %</td>
+            <td class="d-none d-md-table-cell"> {{ porcentajeTotalResiduosAnatomopatologicos }} %</td>
+            <td class="d-none d-md-table-cell"> {{ porcentajeTotalResiduosCortopunzantes }} %</td>
+            <td class="d-none d-md-table-cell"> {{ porcentajeTotalResiduosQuimicos }} %</td>
+            <td> {{ porcentajeTotalResiduos }} %</td>
           </tr>
         </ng-container>
       </tbody>

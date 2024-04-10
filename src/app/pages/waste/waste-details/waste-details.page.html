@@ -1,17 +1,10 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <section class="toolbar-control">
-      <ion-fab class="arrow-back-icon" (click)="goBackWaste()">
-        <ion-fab-button>
-          <ion-icon name="chevron-back"></ion-icon>
-        </ion-fab-button>
-      </ion-fab>
-      <ion-title>Detalles</ion-title>
-    </section>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+
+  <div class="header">
+    <app-header></app-header>
+  </div>
+
+
   <ion-card *ngIf="data" class="p-6 bg-white rounded-lg shadow-md">
     <ion-card-header>
       <ion-item-divider color="light">Fecha: {{ formatDate(data.fecha) }}</ion-item-divider>
@@ -66,7 +59,6 @@
       <section class="button-section">
         <button class="edit-button" (click)="goToEdit()">Editar</button>
         <button class="delete-button" (click)="deleteWaste()">Eliminar</button>
-
       </section>
 
     </ion-card-content>

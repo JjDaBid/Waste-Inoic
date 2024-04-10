@@ -1,22 +1,18 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <section class="toolbar-control">
-      <ion-fab class="arrow-back-icon" (click)="goBackWaste()">
-        <ion-fab-button  >
-          <ion-icon name="chevron-back" ></ion-icon>
-        </ion-fab-button>
-      </ion-fab>
-      <ion-title>Formato RH1</ion-title>
-    </section>
-  </ion-toolbar>
-</ion-header>
+<ion-content>
 
-<ion-content class="ion-padding">
+  <div class="header">
+    <app-header></app-header>
+  </div>
+
+  <section class="ion-padding">
+
   <ion-list lines="full">
 
     <section>
 
-      <ion-title>{{ formTitle }}</ion-title>
+      <div class="title-container">
+        <h2 class="title">{{ formTitle }}</h2>
+      </div>
 
       <form  [formGroup]="form" novalidate >
 
@@ -158,4 +154,6 @@
 
 
   </ion-list>
+
+  </section>
 </ion-content>

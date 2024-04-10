@@ -8,9 +8,13 @@
 
 .header {
   --very-light-pink: #C7C7C7;
-  margin-top: 100px;
-  margin-bottom: 80px;
+  margin-top: 70px;
+  margin-bottom: 60px;
   text-align: center;
+
+  .title{
+    margin-top: 40px;
+  }
 
   .subtitle {
     color: var(--very-light-pink);

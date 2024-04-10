@@ -6,12 +6,19 @@
   --hospital-green: #ACD9B2;
 }
 
-.toolbar-control {
+.header{
+  background-color: black;
+}
+
+.title-container {
   display: flex;
+  justify-content: center;
   align-items: center;
-  ion-title{
-    margin-left: 80px;
-  }
+  margin-bottom: 50px;
+}
+
+.title{
+  font-size: 30px;
 }
 
 ion-item {

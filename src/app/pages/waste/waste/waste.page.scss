@@ -7,6 +7,21 @@
   }
 }
 
+.header{
+  background-color: black;
+}
+
+.title-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.title{
+  font-size: 30px;
+}
+
 .arrow-back-icon {
   justify-self: start;
 }

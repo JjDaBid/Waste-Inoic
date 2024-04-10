@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { WastePageRoutingModule } from './waste-routing.module';
 
 import { WastePage } from './waste.page';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    WastePageRoutingModule
+    WastePageRoutingModule,
+    SharedModule
   ],
   declarations: [WastePage]
 })

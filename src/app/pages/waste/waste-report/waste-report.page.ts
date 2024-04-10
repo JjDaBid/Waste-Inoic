@@ -24,6 +24,15 @@ export class WasteReportPage implements OnInit {
   totalResiduosQuimicos: number = 0;
   totalResiduos: number = 0;
 
+  porcentajeTotalResiduosOrdinariosNoAprovechables: number = 0;
+  porcentajeTotalResiduosOrdinariosAprovechables: number = 0;
+  porcentajeTotalResiduosReciclables: number = 0;
+  porcentajeTotalResiduosBiosanitarios: number = 0;
+  porcentajeTotalResiduosAnatomopatologicos: number = 0;
+  porcentajeTotalResiduosCortopunzantes: number = 0;
+  porcentajeTotalResiduosQuimicos: number = 0;
+  porcentajeTotalResiduos: number = 0;
+
   constructor(
     private router: Router,
     private firebaseService: AuthenticationService,
@@ -90,6 +99,15 @@ export class WasteReportPage implements OnInit {
     this.totalResiduosQuimicos = 0;
     this.totalResiduos = 0;
 
+    this.porcentajeTotalResiduosOrdinariosNoAprovechables = 0;
+    this.porcentajeTotalResiduosOrdinariosAprovechables = 0;
+    this.porcentajeTotalResiduosReciclables = 0;
+    this.porcentajeTotalResiduosBiosanitarios = 0;
+    this.porcentajeTotalResiduosAnatomopatologicos = 0;
+    this.porcentajeTotalResiduosCortopunzantes = 0;
+    this.porcentajeTotalResiduosQuimicos = 0;
+    this.porcentajeTotalResiduos = 0;
+
     // Recorrer los registros y sumar los totales dentro del rango de fechas
     this.wasteData.forEach((registro: WasteRegister) => {
       // Obtener la fecha del registro
@@ -107,6 +125,17 @@ export class WasteReportPage implements OnInit {
         this.totalResiduos += parseFloat(registro.totalResiduos) || 0;
       }
     });
+
+    if (this.totalResiduos > 0) {
+      this.porcentajeTotalResiduosOrdinariosNoAprovechables = parseFloat((this.totalResiduosOrdinariosNoAprovechables / this.totalResiduos * 100).toFixed(2));
+      this.porcentajeTotalResiduosOrdinariosAprovechables = parseFloat((this.totalResiduosOrdinariosAprovechables / this.totalResiduos * 100).toFixed(2));
+      this.porcentajeTotalResiduosReciclables = parseFloat((this.totalResiduosReciclables / this.totalResiduos * 100).toFixed(2));
+      this.porcentajeTotalResiduosBiosanitarios = parseFloat((this.totalResiduosBiosanitarios / this.totalResiduos * 100).toFixed(2));
+      this.porcentajeTotalResiduosAnatomopatologicos = parseFloat((this.totalResiduosAnatomopatologicos / this.totalResiduos * 100).toFixed(2));
+      this.porcentajeTotalResiduosCortopunzantes = parseFloat((this.totalResiduosCortopunzantes / this.totalResiduos * 100).toFixed(2));
+      this.porcentajeTotalResiduosQuimicos = parseFloat((this.totalResiduosQuimicos / this.totalResiduos * 100).toFixed(2));
+      this.porcentajeTotalResiduos = 100;
+    }
   }
 }
 
