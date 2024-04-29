@@ -6,6 +6,7 @@ import { AuthenticationService } from 'src/app/authentication.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { User } from 'src/app/models/user.model';
 
+
 @Component({
   selector: 'app-waste-form',
   templateUrl: './waste-form.page.html',
@@ -180,48 +181,43 @@ export class WasteFormPage implements OnInit {
     }
   }
 
-
-
-
   async saveData(){
-    if(this.form.valid){
+    try {
+      const result = await this.utilService.showConfirmation('Guardar registro', '¿Estás seguro de que deseas guardar este registro?', 'warning');
 
-      let path = `users/${this.user.uid}/wastes`
+      if (result.isConfirmed){
+        if(this.form.valid){
 
-      const loading = await this.utilService.loading();
-      await loading.present();
+          let path = `users/${this.user.uid}/wastes`
 
-      let dataUrl = this.form.value.image;
-      let imagePath = `${this.user.uid}/${Date.now()}`;
-      let imageUrl = await this.firebaseService.uploadImage(imagePath, dataUrl);
-      this.form.controls.image.setValue(imageUrl);
+          const loading = await this.utilService.loading();
+          await loading.present();
 
-      delete this.form.value.id;
+          let dataUrl = this.form.value.image;
+          let imagePath = `${this.user.uid}/${Date.now()}`;
+          let imageUrl = await this.firebaseService.uploadImage(imagePath, dataUrl);
+          this.form.controls.image.setValue(imageUrl);
 
-      this.firebaseService.addRegister(path, this.form.value).then(res => {
+          delete this.form.value.id;
 
-        this.utilService.presentToast({
-          message: "Registro exitoso",
-          duration: 1500,
-          color: "success",
-          position: "middle",
-          icon: "checkmark-cicle-outline"
-        })
+          this.firebaseService.addRegister(path, this.form.value).then(res => {
 
-      }).catch(error => {
-        console.log(error)
-        this.utilService.presentToast({
-          message: error.message,
-          duration: 2500,
-          color: "#ffffff",
-          position: "middle",
-          icon: "alert-cicle-outline"
-        })
-      }).finally(() => {
-        loading.dismiss();
-        this.utilService.routerLink('/waste');
+            this.utilService.showToast("Registro exitoso", "center", 3000, "linear-gradient(to right, #00b09b, #96c93d)");
 
-      })
+          }).catch(error => {
+            console.log(error)
+            this.utilService.showToast("No se pudo guardar el registro", "center", 3000, "linear-gradient(to right, #00b09b, #9c93d)");
+
+          }).finally(() => {
+            loading.dismiss();
+            this.utilService.routerLink('/waste');
+          });
+
+        }
+
+      }
+
+    } catch (error) {
 
     }
 
@@ -229,78 +225,63 @@ export class WasteFormPage implements OnInit {
 
 
   async editData() {
+    try {
+      const result = await this.utilService.showConfirmation('Editar registro', '¿Estás seguro de que deseas editar este registro?', 'warning');
 
-    console.log("")
-    console.log("===================================")
-    console.log("editData()")
+      if (result.isConfirmed){
+        if (this.form.valid) {
+          const loading = await this.utilService.loading();
+          await loading.present();
 
+          const dataUrl = this.form.value.image;
+          console.log("dataUrl: ", dataUrl)
 
-
-
-    if (this.form.valid) {
-        const loading = await this.utilService.loading();
-        await loading.present();
-
-        const dataUrl = this.form.value.image;
-        console.log("dataUrl: ", dataUrl)
-
-
-        let imagePath = this.data.image; // Obtener la ruta de la imagen actual del registro
-        console.log("imagePath: ", imagePath)
+          let imagePath = this.data.image; // Obtener la ruta de la imagen actual del registro
+          console.log("imagePath: ", imagePath)
 
 
-        let imageUrl = null;
+          let imageUrl = null;
 
-        // Verificar si se ha seleccionado una nueva imagen
-        if (dataUrl !== imagePath) {
-            // Eliminar la imagen anterior del Storage
-            await this.firebaseService.deleteImage(imagePath);
+          // Verificar si se ha seleccionado una nueva imagen
+          if (dataUrl !== imagePath) {
+              // Eliminar la imagen anterior del Storage
+              await this.firebaseService.deleteImage(imagePath);
 
-            // Subir la nueva imagen al Storage
-            imagePath = `${this.user.uid}/${Date.now()}`;
-            imageUrl = await this.firebaseService.uploadImage(imagePath, dataUrl);
+              // Subir la nueva imagen al Storage
+              imagePath = `${this.user.uid}/${Date.now()}`;
+              imageUrl = await this.firebaseService.uploadImage(imagePath, dataUrl);
+          }
+
+          // Actualizar los datos del formulario con la nueva ruta de la imagen
+          this.form.controls.image.setValue(imageUrl || imagePath);
+
+          // Obtener el ID del registro
+          const dataId = this.dataId;
+          console.log("dataId: ", dataId)
+
+          // Eliminar el ID del objeto de datos para evitar problemas al actualizar
+          delete this.form.value.id;
+
+          // Actualizar el registro en Firestore
+          const path = `users/${this.user.uid}/wastes/${dataId}`;
+          await this.firebaseService.updateDocument(path, this.form.value);
+
+          // Mostrar un mensaje de éxito y redirigir a la página de listado de residuos
+          this.utilService.showToast("Registro editado exitosamente", "center", 3000, "linear-gradient(to right, #00b09b, #96c93d)")
+
+          loading.dismiss();
+          this.utilService.routerLink('/waste');
         }
+      }
 
-        // Actualizar los datos del formulario con la nueva ruta de la imagen
-        this.form.controls.image.setValue(imageUrl || imagePath);
+    } catch (error) {
 
-        // Obtener el ID del registro
-        const dataId = this.dataId;
-        console.log("dataId: ", dataId)
-
-        // Eliminar el ID del objeto de datos para evitar problemas al actualizar
-        delete this.form.value.id;
-
-        // Actualizar el registro en Firestore
-        const path = `users/${this.user.uid}/wastes/${dataId}`;
-        await this.firebaseService.updateDocument(path, this.form.value);
-
-        // Mostrar un mensaje de éxito y redirigir a la página de listado de residuos
-        this.utilService.presentToast({
-            message: "Registro actualizado exitosamente",
-            duration: 1500,
-            color: "success",
-            position: "middle",
-            icon: "checkmark-circle-outline"
-        });
-
-        loading.dismiss();
-        this.utilService.routerLink('/waste');
     }
-}
-
-
-
-
-
-
-
-
+  }
 
   async goBackWaste() {
     this.form.reset();
     this.utilService.routerLink('/waste');
   }
-
 
 }

@@ -1,80 +1,96 @@
 <ion-content [fullscreen]="true">
+  <section class="report-container">
 
-  <div class="header">
-    <app-header></app-header>
-  </div>
+    <div class="header">
+      <app-header></app-header>
+    </div>
 
-  <div class="title-container">
-    <h2 class="title">Reporte</h2>
-  </div>
+    <div class="title-container">
+      <h2 class="title">Reporte</h2>
+    </div>
 
-  <section class="dates">
+    <section class="dates">
 
-    <section class="calendars">
+      <section class="calendars">
+        <section class="calendar">
+          <ion-label class="date-selector-title">Fecha Inicial</ion-label>
+          <ion-item>
+            <input class="date-input" type="date" [(ngModel)]="fechaInicial" />
+          </ion-item>
+        </section>
 
-      <section class="calendar">
-        <ion-label class="date-selector-title">Fecha Inicial</ion-label>
-        <ion-item>
-          <input class="date-input" type="date" [(ngModel)]="fechaInicial" />
-        </ion-item>
+        <section class="calendar">
+          <ion-label class="date-selector-title">Fecha Final</ion-label>
+          <ion-item>
+            <input class="date-input" type="date" [(ngModel)]="fechaFinal" />
+          </ion-item>
+        </section>
       </section>
 
-      <section class="calendar">
-        <ion-label class="date-selector-title">Fecha Final</ion-label>
-        <ion-item>
-          <input class="date-input" type="date" [(ngModel)]="fechaFinal" />
-        </ion-item>
+      <section class="button-container">
+        <ion-button expand="block" (click)="filterData()">Buscar</ion-button>
       </section>
 
     </section>
 
-    <section class="button-container">
-      <ion-button expand="block" (click)="filterData()">Buscar</ion-button>
-    </section>
+    <div class="chart-container" *ngIf="totalResiduos > 0">
+      <div class="container d-flex justify-content-center align-items-center text-center mt-5">
+        <!-- Insertar componentes gráficos aquí -->
+        <app-graphic [chartData]="chartData"></app-graphic>
+      </div>
+
+      <div class="container d-flex justify-content-center align-items-center text-center mt-5">
+        <!-- Insertar componentes gráficos aquí -->
+        <app-second-chart [barChartData]="barChartData"></app-second-chart>
+      </div>
+    </div>
+
+    <div class="container d-flex justify-content-center align-items-center text-center mt-5 mb-5">
+      <table class="table table-striped table-hover align-middle">
+        <thead>
+          <tr>
+            <th scope="col" class="d-none d-md-table-cell">Ord. No Apro.</th>
+            <th scope="col" class="d-none d-md-table-cell">Ord. Apro.</th>
+            <th scope="col" class="d-none d-md-table-cell">Reciclables</th>
+            <th scope="col" class="d-none d-md-table-cell">Biosanitarios</th>
+            <th scope="col" class="d-none d-md-table-cell">Anatomopat.</th>
+            <th scope="col" class="d-none d-md-table-cell">Cortopunzantes</th>
+            <th scope="col" class="d-none d-md-table-cell">Químicos</th>
+            <th scope="col">Total Residuos</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container>
+            <tr >
+              <td class="d-none d-md-table-cell"> {{ totalResiduosOrdinariosNoAprovechables }} Kg</td>
+              <td class="d-none d-md-table-cell"> {{ totalResiduosOrdinariosAprovechables }} Kg</td>
+              <td class="d-none d-md-table-cell"> {{ totalResiduosReciclables }} Kg</td>
+              <td class="d-none d-md-table-cell"> {{ totalResiduosBiosanitarios }} Kg</td>
+              <td class="d-none d-md-table-cell"> {{ totalResiduosAnatomopatologicos }} Kg</td>
+              <td class="d-none d-md-table-cell"> {{ totalResiduosCortopunzantes }} Kg</td>
+              <td class="d-none d-md-table-cell"> {{ totalResiduosQuimicos }} Kg</td>
+              <td><span>{{ totalResiduos }} Kg</span></td>
+            </tr>
+            <tr >
+              <td class="d-none d-md-table-cell"> {{ porcentajeTotalResiduosOrdinariosNoAprovechables }} %</td>
+              <td class="d-none d-md-table-cell"> {{ porcentajeTotalResiduosOrdinariosAprovechables }} %</td>
+              <td class="d-none d-md-table-cell"> {{ porcentajeTotalResiduosReciclables }} %</td>
+              <td class="d-none d-md-table-cell"> {{ porcentajeTotalResiduosBiosanitarios }} %</td>
+              <td class="d-none d-md-table-cell"> {{ porcentajeTotalResiduosAnatomopatologicos }} %</td>
+              <td class="d-none d-md-table-cell"> {{ porcentajeTotalResiduosCortopunzantes }} %</td>
+              <td class="d-none d-md-table-cell"> {{ porcentajeTotalResiduosQuimicos }} %</td>
+              <td> {{ porcentajeTotalResiduos }} %</td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+
+    </div>
+
+
+
 
   </section>
-
-
-  <div class="container d-flex justify-content-center align-items-center text-center mt-5">
-    <table class="table table-striped table-hover align-middle">
-      <thead>
-        <tr>
-          <th scope="col" class="d-none d-md-table-cell">Ord. No Apro.</th>
-          <th scope="col" class="d-none d-md-table-cell">Ord. Apro.</th>
-          <th scope="col" class="d-none d-md-table-cell">Reciclables</th>
-          <th scope="col" class="d-none d-md-table-cell">Biosanitarios</th>
-          <th scope="col" class="d-none d-md-table-cell">Anatomopat.</th>
-          <th scope="col" class="d-none d-md-table-cell">Cortopunzantes</th>
-          <th scope="col" class="d-none d-md-table-cell">Químicos</th>
-          <th scope="col">Total Residuos</th>
-
-        </tr>
-      </thead>
-      <tbody>
-        <ng-container>
-          <tr >
-            <td class="d-none d-md-table-cell"> {{ totalResiduosOrdinariosNoAprovechables }} Kg</td>
-            <td class="d-none d-md-table-cell"> {{ totalResiduosOrdinariosAprovechables }} Kg</td>
-            <td class="d-none d-md-table-cell"> {{ totalResiduosReciclables }} Kg</td>
-            <td class="d-none d-md-table-cell"> {{ totalResiduosBiosanitarios }} Kg</td>
-            <td class="d-none d-md-table-cell"> {{ totalResiduosAnatomopatologicos }} Kg</td>
-            <td class="d-none d-md-table-cell"> {{ totalResiduosCortopunzantes }} Kg</td>
-            <td class="d-none d-md-table-cell"> {{ totalResiduosQuimicos }} Kg</td>
-            <td><span>{{ totalResiduos }} Kg</span></td>
-          </tr>
-          <tr >
-            <td class="d-none d-md-table-cell"> {{ porcentajeTotalResiduosOrdinariosNoAprovechables }} %</td>
-            <td class="d-none d-md-table-cell"> {{ porcentajeTotalResiduosOrdinariosAprovechables }} %</td>
-            <td class="d-none d-md-table-cell"> {{ porcentajeTotalResiduosReciclables }} %</td>
-            <td class="d-none d-md-table-cell"> {{ porcentajeTotalResiduosBiosanitarios }} %</td>
-            <td class="d-none d-md-table-cell"> {{ porcentajeTotalResiduosAnatomopatologicos }} %</td>
-            <td class="d-none d-md-table-cell"> {{ porcentajeTotalResiduosCortopunzantes }} %</td>
-            <td class="d-none d-md-table-cell"> {{ porcentajeTotalResiduosQuimicos }} %</td>
-            <td> {{ porcentajeTotalResiduos }} %</td>
-          </tr>
-        </ng-container>
-      </tbody>
-    </table>
-  </div>
 
 </ion-content>

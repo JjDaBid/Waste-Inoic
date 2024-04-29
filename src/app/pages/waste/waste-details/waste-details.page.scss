@@ -59,7 +59,7 @@ ion-card-content {
     padding: 10px;
     border-radius: 10px;
     margin: 0 auto;
-    background-color: green;
+    background-color: yellowgreen;
 
   }
 
@@ -68,20 +68,47 @@ ion-card-content {
     padding: 10px;
     border-radius: 10px;
     margin: 0 auto;
-    background-color: red;
+    background-color: #cf2020;
   }
 }
 
-
-
 @media screen and (max-width: 768px) {
   .card-container {
-    width: 90%;
+    width: 100%;
     flex-direction: column;
     font-size: 14px;
 
     .image-container{
       margin-bottom: 20px;
     }
+
+
+
+
   }
+
+  .button-section{
+    width: 100%;
+    gap: 10px;
+
+    .edit-button{
+      width: 50%;
+      padding: 10px;
+      border-radius: 10px;
+      margin: 0 auto;
+      background-color: yellowgreen;
+
+    }
+
+    .delete-button{
+      width: 50%;
+      padding: 10px;
+      border-radius: 10px;
+      margin: 0 auto;
+      background-color: #cf2020;
+    }
+  }
+
+
+
 }

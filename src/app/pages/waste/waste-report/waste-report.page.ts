@@ -12,6 +12,9 @@ import { UtilsService } from 'src/app/services/utils.service';
 })
 export class WasteReportPage implements OnInit {
 
+  chartData: any;
+  barChartData: any;
+
   fechaInicial: string;
   fechaFinal: string;
   wasteData: WasteRegister[] = [];
@@ -41,6 +44,9 @@ export class WasteReportPage implements OnInit {
 
   ngOnInit() {
     this.getRegisters();
+    this.generateChartData();
+    this.generateSecondChartData();
+
   }
 
   selectDates(fechaInicial: Date, fechaFinal: Date): { fechaInicial: Date, fechaFinal: Date } {
@@ -77,7 +83,6 @@ export class WasteReportPage implements OnInit {
       }
     });
   }
-
 
   formatDate(date: any): string {
     const formattedDate = new Date(date).toLocaleDateString('es-ES');
@@ -136,16 +141,133 @@ export class WasteReportPage implements OnInit {
       this.porcentajeTotalResiduosQuimicos = parseFloat((this.totalResiduosQuimicos / this.totalResiduos * 100).toFixed(2));
       this.porcentajeTotalResiduos = 100;
     }
+
+    this.generateChartData();
+    this.generateSecondChartData();
   }
+
+  generateChartData() {
+    this.chartData = {
+      series: [ // Aquí debes poner los datos de tu serie
+            this.totalResiduosOrdinariosNoAprovechables,
+            this.totalResiduosOrdinariosAprovechables,
+            this.totalResiduosReciclables,
+            this.totalResiduosBiosanitarios,
+            this.totalResiduosAnatomopatologicos,
+            this.totalResiduosCortopunzantes,
+            this.totalResiduosQuimicos,
+      ],
+      chart: {
+        width: 380,
+        type: "pie"
+      },
+      labels: [
+        "Ordin. No Aprov.",
+        "Ordin. Aprov.",
+        "Reciclables",
+        "Biosanitarios",
+        "Anatomopat.",
+        "Cortopunzantes",
+        "Químicos",
+      ],
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: "bottom"
+            }
+          }
+        }
+      ]
+    };
+
+    console.log("ChartData:", this.chartData);
+  }
+
+
+
+
+  generateSecondChartData() {
+    this.barChartData = {
+      series: [
+        {
+          name: "Kilogramos",
+          data: [
+            this.totalResiduosOrdinariosNoAprovechables,
+            this.totalResiduosOrdinariosAprovechables,
+            this.totalResiduosReciclables,
+            this.totalResiduosBiosanitarios,
+            this.totalResiduosAnatomopatologicos,
+            this.totalResiduosCortopunzantes,
+            this.totalResiduosQuimicos,
+          ]
+        }
+      ],
+      chart: {
+        height: 350,
+        type: "bar",
+        events: {
+          click: function(chart, w, e) {
+            // console.log(chart, w, e)
+          }
+        }
+      },
+      colors: [
+        "#008FFB",
+        "#00E396",
+        "#FEB019",
+        "#FF4560",
+        "#775DD0",
+        "#546E7A",
+        "#26a69a",
+        "#D10CE8"
+      ],
+      plotOptions: {
+        bar: {
+          columnWidth: "60%",
+          distributed: true
+        }
+      },
+      dataLabels: {
+        enabled: true
+      },
+      legend: {
+        show: false
+      },
+      grid: {
+        show: false
+      },
+      xaxis: {
+        categories: [
+          "Ordin. No Aprov.",
+          "Ordin. Aprov.",
+          "Reciclables",
+          "Biosanitarios",
+          "Anatomopat.",
+          "Cortopunzantes",
+          "Químicos"
+        ],
+        labels: {
+          style: {
+            colors: [
+              "#008FFB",
+              "#00E396",
+              "#FEB019",
+              "#FF4560",
+              "#775DD0",
+              "#546E7A",
+              "#26a69a",
+            ],
+            fontSize: "10px"
+          }
+        }
+      }
+    };
+
+  }
+
 }
-
-
-
-
-
-
-
-
-
-
-

@@ -6,6 +6,9 @@ import { IonicModule } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LogoToolbarComponent } from './component/logo-toolbar/logo-toolbar.component';
 import { RouterModule } from '@angular/router';
+import { GraphicComponent } from './component/graphic/graphic.component';
+import { SecondChartComponent } from './component/second-chart/second-chart.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 
 
@@ -13,19 +16,25 @@ import { RouterModule } from '@angular/router';
   declarations: [
     HeaderComponent,
     LogoComponent,
-    LogoToolbarComponent
+    LogoToolbarComponent,
+    GraphicComponent,
+    SecondChartComponent
+
   ],
   exports: [
     HeaderComponent,
     LogoComponent,
-    LogoToolbarComponent
+    LogoToolbarComponent,
+    GraphicComponent,
+    SecondChartComponent
   ],
   imports: [
     CommonModule,
     IonicModule,
     ReactiveFormsModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    NgApexchartsModule
   ]
 })
 export class SharedModule { }

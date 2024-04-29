@@ -1,8 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/authentication.service';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { AlertController, LoadingController } from '@ionic/angular';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
 
 import { User } from 'src/app/models/user.model';
 import { UtilsService } from 'src/app/services/utils.service';
@@ -38,13 +36,11 @@ export class LoginPage implements OnInit {
 
       }).catch(error => {
         console.log(error)
-        this.utilService.presentToast({
-          message: error.message,
-          duration: 2500,
-          color: "#ffffff",
-          position: "middle",
-          icon: "alert-cicle-outline"
-        })
+        this.utilService.showToast(
+          "Las credenciales de autenticación proporcionadas son incorrectas, o han expirado.",
+          "center",
+          4000,
+          "")
       }).finally(() => {
         loading.dismiss();
       })
@@ -65,13 +61,11 @@ export class LoginPage implements OnInit {
         this.utilService.routerLink('/home');
         this.loginForm.reset();
 
-        this.utilService.presentToast({
-          message: `Bienvenido ${user.name}`,
-          duration: 1500,
-          color: "#ffffff",
-          position: "middle",
-          icon: "person-cicle-outline"
-        })
+        this.utilService.showToast(
+          `Bienvenido ${user.name}`,
+          "right",
+          4000,
+          "linear-gradient(to right, #00b09b, #96c93d)")
 
       }).catch(error => {
         console.log(error)
@@ -88,42 +82,7 @@ export class LoginPage implements OnInit {
     }
   }
 
-  // async login() {
-  //   const loading = await this.loadingController.create();
-  //   await loading.present();
-  //   if (this.loginForm.valid) {
-  //     const user = await this.authService.loginUser(this.loginForm.value.email, this.loginForm.value.password).catch((error) => {
-  //       this.presentToast(error)
-  //       console.log(error);
-  //       loading.dismiss();
-  //     })
-
-  //     if (user) {
-  //       loading.dismiss();
-  //       this.router.navigate(['/home'])
-  //     }
-  //   } else {
-  //     return console.log('Please provide all the required values!');
-  //   }
-
-  // }
-  // get errorControl() {
-  //   return this.loginForm.controls;
-  // }
-
-  // async presentToast(message: "undefined") {
-  //   console.log(message);
-
-  //   const toast = await this.toastController.create({
-  //     message: "Usuario o contraseña incorrectos",
-  //     duration: 2000,
-  //     position: 'top',
-  //   });
-
-  //   await toast.present();
-  // }
-
-  showOrHidePassword() {
+   showOrHidePassword() {
     this.hidePassword = !this.hidePassword;
   }
 }

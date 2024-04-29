@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Component, OnInit, ViewChild, NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -17,6 +17,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     WasteReportPageRoutingModule,
     SharedModule
   ],
-  declarations: [WasteReportPage]
+  declarations: [WasteReportPage],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class WasteReportPageModule {}

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from 'src/app/authentication.service';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-waste-details',
@@ -14,6 +15,7 @@ export class WasteDetailsPage {
   constructor(private router: Router,
               private activatedRoute: ActivatedRoute,
               private firebaseService: AuthenticationService,
+              private utilsService: UtilsService
               ) {
     this.activatedRoute.params.subscribe(params => {
 
@@ -66,13 +68,17 @@ export class WasteDetailsPage {
 
     if (this.dataId) {
       try {
-        await this.firebaseService.deleteWaste(this.dataId); // Utilizar el ID del residuo
-        console.log('Residuo eliminado correctamente');
+        // Mostrar SweetAlert de confirmación
+        const result = await this.utilsService.showConfirmation('Eliminar registro', '¿Estás seguro de que deseas eliminar este registro?', 'warning');
 
-        await this.eliminarImagen();
-
-        // Redirige a la página de lista de residuos u otra página apropiada
-        this.router.navigate(['/waste']);
+        if (result.isConfirmed) {
+          // Si el usuario confirma la eliminación, procede con la eliminación del residuo
+          await this.firebaseService.deleteWaste(this.dataId); // Utilizar el ID del residuo
+          // Eliminar la imagen asociada al residuo
+          await this.eliminarImagen();
+          // Redirige a la página de lista de residuos u otra página apropiada
+          this.router.navigate(['/waste']);
+        }
       } catch (error) {
         console.error('Error al eliminar el residuo:', error);
       }

@@ -12,10 +12,9 @@
     <table class="table table-striped table-hover align-middle">
       <thead>
         <tr>
-          <th scope="col">ID</th>
           <th scope="col">Fecha</th>
-          <th scope="col" class="d-none d-md-table-cell">Ord. No Apro.</th>
-          <th scope="col" class="d-none d-md-table-cell">Ord. Apro.</th>
+          <th scope="col" class="d-none d-md-table-cell">Ordin. No Aprov.</th>
+          <th scope="col" class="d-none d-md-table-cell">Ordin. Aprov.</th>
           <th scope="col" class="d-none d-md-table-cell">Reciclables</th>
           <th scope="col" class="d-none d-md-table-cell">Biosanitarios</th>
           <th scope="col" class="d-none d-md-table-cell">Anatomopat.</th>
@@ -28,7 +27,6 @@
       <tbody>
         <ng-container *ngFor="let data of wasteData">
           <tr (click)="viewDetails(data)">
-            <td>{{ data.id }}</td>
             <td>{{ formatDate(data.fecha) }}</td>
             <td class="d-none d-md-table-cell">{{ data.residuosOrdinariosNoAprovechables }} Kg</td>
             <td class="d-none d-md-table-cell">{{ data.residuosOrdinariosAprovechables }} kg</td>
@@ -37,7 +35,7 @@
             <td class="d-none d-md-table-cell">{{ data.residuosAnatomopatologicos }} Kg</td>
             <td class="d-none d-md-table-cell">{{ data.residuosCortopunzantes }} Kg</td>
             <td class="d-none d-md-table-cell">{{ data.residuosQuimicos }} Kg</td>
-            <td>{{ data.totalResiduos }}</td>
+            <td><span>{{ data.totalResiduos }} Kg</span></td>
             <td><img [src]="data.image" alt="Imagen de residuos" width="100"></td>
           </tr>
         </ng-container>

@@ -2,6 +2,11 @@
   background-color: black;
 }
 
+.report-container{
+  display: flex;
+  flex-direction: column;
+}
+
 .title-container {
   display: flex;
   justify-content: center;
@@ -22,7 +27,6 @@
     width: 80%;
     justify-content: center;
     display: flex;
-    margin-top: 20px;
     background-color: ghostwhite;
     gap: 100px;
 
@@ -48,10 +52,20 @@
 
   .button-container{
     width: 30%;
+    margin-bottom: 10px;
   }
 
   ion-button {
     margin-top: 20px;
     width: 100%;
   }
+}
+
+.chart-container{
+  display: flex;
+  background-color: whitesmoke;
+  width: 70%;
+  justify-content: center;
+  align-self: center;
+  justify-self: center;
 }
