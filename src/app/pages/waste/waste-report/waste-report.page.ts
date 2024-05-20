@@ -120,14 +120,14 @@ export class WasteReportPage implements OnInit {
       // Verificar si la fecha del registro está dentro del rango seleccionado
       if (fechaRegistro >= fechaInicial && fechaRegistro <= fechaFinal) {
         // Sumar los totales
-        this.totalResiduosOrdinariosNoAprovechables += parseFloat(registro.residuosOrdinariosNoAprovechables) || 0;
-        this.totalResiduosOrdinariosAprovechables += parseFloat(registro.residuosOrdinariosAprovechables) || 0;
-        this.totalResiduosReciclables += parseFloat(registro.residuosReciclables) || 0;
-        this.totalResiduosBiosanitarios += parseFloat(registro.residuosBiosanitarios) || 0;
-        this.totalResiduosAnatomopatologicos += parseFloat(registro.residuosAnatomopatologicos) || 0;
-        this.totalResiduosCortopunzantes += parseFloat(registro.residuosCortopunzantes) || 0;
-        this.totalResiduosQuimicos += parseFloat(registro.residuosQuimicos) || 0;
-        this.totalResiduos += parseFloat(registro.totalResiduos) || 0;
+        this.totalResiduosOrdinariosNoAprovechables = parseFloat((this.totalResiduosOrdinariosNoAprovechables + parseFloat(registro.residuosOrdinariosNoAprovechables) || 0).toFixed(2));
+        this.totalResiduosOrdinariosAprovechables = parseFloat((this.totalResiduosOrdinariosAprovechables + parseFloat(registro.residuosOrdinariosAprovechables) || 0).toFixed(2));
+        this.totalResiduosReciclables = parseFloat((this.totalResiduosReciclables + parseFloat(registro.residuosReciclables) || 0).toFixed(2));
+        this.totalResiduosBiosanitarios = parseFloat((this.totalResiduosBiosanitarios + parseFloat(registro.residuosBiosanitarios) || 0).toFixed(2));
+        this.totalResiduosAnatomopatologicos = parseFloat((this.totalResiduosAnatomopatologicos + parseFloat(registro.residuosAnatomopatologicos) || 0).toFixed(2));
+        this.totalResiduosCortopunzantes = parseFloat((this.totalResiduosCortopunzantes + parseFloat(registro.residuosCortopunzantes) || 0).toFixed(2));
+        this.totalResiduosQuimicos = parseFloat((this.totalResiduosQuimicos + parseFloat(registro.residuosQuimicos) || 0).toFixed(2));
+        this.totalResiduos = parseFloat((this.totalResiduos + parseFloat(registro.totalResiduos) || 0).toFixed(2));
       }
     });
 
