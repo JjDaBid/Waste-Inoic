@@ -197,18 +197,19 @@ export class WasteReportPage implements OnInit {
         {
           name: "Kilogramos",
           data: [
-            this.totalResiduosOrdinariosNoAprovechables,
-            this.totalResiduosOrdinariosAprovechables,
-            this.totalResiduosReciclables,
-            this.totalResiduosBiosanitarios,
-            this.totalResiduosAnatomopatologicos,
-            this.totalResiduosCortopunzantes,
-            this.totalResiduosQuimicos,
+            this.totalResiduosOrdinariosNoAprovechables.toFixed(2),
+            this.totalResiduosOrdinariosAprovechables.toFixed(2),
+            this.totalResiduosReciclables.toFixed(2),
+            this.totalResiduosBiosanitarios.toFixed(2),
+            this.totalResiduosAnatomopatologicos.toFixed(2),
+            this.totalResiduosCortopunzantes.toFixed(2),
+            this.totalResiduosQuimicos.toFixed(2),
           ]
         }
       ],
       chart: {
         height: 350,
+        width: 480,
         type: "bar",
         events: {
           click: function(chart, w, e) {
